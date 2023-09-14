@@ -1,5 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { withErrorBoundary } from "react-error-boundary";
+import ErrorComponent from "components/common/ErrorComponent";
+import classNames from "utils/classNames";
+
 const Button = ({
     type = "button",
     children,
@@ -14,9 +18,11 @@ const Button = ({
     );
     return (
         <button
-            className={`min-h-[56px] text-white flex items-center justify-center py-4 w-full text-base font-semibold rounded-xl ${
-                !!isLoading ? "opacity-50 pointer-events-none" : ""
-            } ${className}`}
+            className={classNames(
+                "min-h-[56px] text-white flex items-center justify-center p-4 text-base font-semibold rounded-xl",
+                !!isLoading ? "opacity-50 pointer-events-none" : "",
+                className
+            )}
             type={type}
             {...rest}
         >
@@ -31,4 +37,4 @@ Button.propTypes = {
     isLoading: PropTypes.bool,
 };
 
-export default Button;
+export default withErrorBoundary(Button, { FallbackComponent: ErrorComponent });

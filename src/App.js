@@ -1,15 +1,28 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { lazy } from "react";
 import { Routes, Route } from "react-router-dom";
 
-const SignUpPage = lazy(() => import("./pages/SignUpPage"));
-const SignInPage = lazy(() => import("./pages/SignInPage"));
+const SignUpPage = lazy(() => import("pages/SignUpPage"));
+const SignInPage = lazy(() => import("pages/SignInPage"));
+const DashboardPage = lazy(() => import("pages/DashboardPage"));
 function App() {
     return (
-        <Routes>
-            <Route path="/sign-up" element={<SignUpPage></SignUpPage>}></Route>
-            <Route path="/sign-in" element={<SignInPage></SignInPage>}></Route>
-        </Routes>
+        <Suspense>
+            <Routes>
+                <Route
+                    path="/"
+                    element={<DashboardPage></DashboardPage>}
+                ></Route>
+                <Route
+                    path="/sign-up"
+                    element={<SignUpPage></SignUpPage>}
+                ></Route>
+                <Route
+                    path="/sign-in"
+                    element={<SignInPage></SignInPage>}
+                ></Route>
+            </Routes>
+        </Suspense>
     );
 }
 
