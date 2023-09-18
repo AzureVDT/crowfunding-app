@@ -1,6 +1,8 @@
+import Button from "components/button/Button";
 import FormGroup from "components/common/FormGroup";
 import FormRow from "components/common/FormRow";
 import { Dropdown } from "components/dropdown";
+import { IconBudget } from "components/icons";
 import { Input, Textarea } from "components/input";
 import { Label } from "components/label";
 import React, { useMemo, useState } from "react";
@@ -74,6 +76,110 @@ const CampaignAddNew = () => {
                             onChange={setContent}
                         />
                     </FormGroup>
+                    <FormGroup>
+                        <div className="flex items-center bg-secondary gap-x-6 px-[45px] py-7 rounded-xl">
+                            <IconBudget></IconBudget>
+                            <span className="text-2xl font-bold text-white">
+                                You will get 90% of total raised
+                            </span>
+                        </div>
+                    </FormGroup>
+                    <FormRow>
+                        <FormGroup>
+                            <Label htmlFor="goal">Goal *</Label>
+                            <Input
+                                control={control}
+                                name="goal"
+                                placeholder="$0.00 USD"
+                            ></Input>
+                        </FormGroup>
+                        <FormGroup>
+                            <Label htmlFor="amount">Raised Amount *</Label>
+                            <Input
+                                control={control}
+                                name="amount"
+                                placeholder="$0.00 USD"
+                            ></Input>
+                        </FormGroup>
+                    </FormRow>
+                    <FormRow>
+                        <FormGroup>
+                            <Label htmlFor="prefilled">Amount Prefilled</Label>
+                            <Input
+                                control={control}
+                                name="prefilled"
+                                placeholder="Amount Prefilled"
+                            ></Input>
+                            <p className="text-sm text-left text-text3">
+                                It will help fill amount box by click, place
+                                each amount by comma, ex: 10,20,30,40
+                            </p>
+                        </FormGroup>
+                        <FormGroup>
+                            <Label htmlFor="video">Video</Label>
+                            <Input
+                                control={control}
+                                name="video"
+                                placeholder="Video"
+                            ></Input>
+                            <p className="text-sm text-left text-text3">
+                                Place Youtube or Vimeo Video URL
+                            </p>
+                        </FormGroup>
+                    </FormRow>
+                    <FormRow>
+                        <FormGroup>
+                            <Label htmlFor="title">Campaign End Method</Label>
+                            <Dropdown>
+                                <Dropdown.Select placeholder="Select one"></Dropdown.Select>
+                                <Dropdown.List>
+                                    <Dropdown.Option>
+                                        Architecture
+                                    </Dropdown.Option>
+                                    <Dropdown.Option>Education</Dropdown.Option>
+                                    <Dropdown.Option>
+                                        Productivity
+                                    </Dropdown.Option>
+                                </Dropdown.List>
+                            </Dropdown>
+                        </FormGroup>
+                        <FormGroup>
+                            <Label htmlFor="title">Country</Label>
+                            <Dropdown>
+                                <Dropdown.Select placeholder="Select a country"></Dropdown.Select>
+                                <Dropdown.List>
+                                    <Dropdown.Option>Vietnam</Dropdown.Option>
+                                    <Dropdown.Option>Japan</Dropdown.Option>
+                                    <Dropdown.Option>Korea</Dropdown.Option>
+                                </Dropdown.List>
+                            </Dropdown>
+                        </FormGroup>
+                    </FormRow>
+                    <FormRow>
+                        <FormGroup>
+                            <Label htmlFor="start_date">Start Date</Label>
+                            <Input
+                                control={control}
+                                name="start_date"
+                                placeholder="Start Date"
+                            ></Input>
+                        </FormGroup>
+                        <FormGroup>
+                            <Label htmlFor="end_date">End Date</Label>
+                            <Input
+                                control={control}
+                                name="end_date"
+                                placeholder="End Date"
+                            ></Input>
+                        </FormGroup>
+                    </FormRow>
+                    <Button
+                        type="submit"
+                        kind="primary"
+                        className="px-10 mx-auto mt-10"
+                    >
+                        Submit new campaign
+                    </Button>
                 </form>
             </div>
         </div>

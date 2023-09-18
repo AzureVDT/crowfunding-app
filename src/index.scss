@@ -35,3 +35,8 @@ input:focus + .error-input {
         @apply text-sm font-normal not-italic text-text4;
     }
 }
+
+.shadow-1 {
+    box-shadow: 4px 4px 8px 0px rgba(226, 226, 226, 0.2),
+        -4px 4px 8px 0px rgba(226, 226, 226, 0.2);
+}
