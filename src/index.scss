@@ -3,7 +3,7 @@
 @tailwind utilities;
 @layer base {
     body {
-        @apply font-primary text-base font-normal mx-auto;
+        @apply font-primary text-base font-normal mx-auto text-text1;
         text-rendering: optimizeLegibility;
         -webkit-font-smoothing: antialiased;
         max-width: 1440px;
@@ -15,4 +15,23 @@
 
 input:focus + .error-input {
     display: none;
+}
+
+.quill {
+    @apply border border-strock rounded-xl p-[15px_25px];
+    .ql-toolbar.ql-snow {
+        border: none;
+        background: none;
+        @apply bg-text4 bg-opacity-10 rounded-xl py-3 px-5 inline-block;
+    }
+    .ql-container.ql-snow,
+    .ql-editor {
+        @apply border-none font-primary text-sm;
+    }
+    .ql-editor {
+        @apply pt-10;
+    }
+    .ql-editor.ql-blank::before {
+        @apply text-sm font-normal not-italic text-text4;
+    }
 }

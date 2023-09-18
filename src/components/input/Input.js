@@ -29,7 +29,7 @@ const Input = ({
                     placeholder:text-text4 dark:placeholder:text-text2 dark:text-white bg-transparent`,
                     error.length > 0
                         ? "border-error text-error"
-                        : "border-strock text-text1 dark:border-darkStrock",
+                        : "border-strock dark:border-darkStrock",
                     children ? "pr-16" : ""
                 )}
                 {...field}
