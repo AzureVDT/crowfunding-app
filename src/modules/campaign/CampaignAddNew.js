@@ -1,3 +1,4 @@
+import axios from "axios";
 import Button from "components/button/Button";
 import FormGroup from "components/common/FormGroup";
 import FormRow from "components/common/FormRow";
@@ -5,13 +6,16 @@ import { Dropdown } from "components/dropdown";
 import { IconBudget } from "components/icons";
 import { Input, Textarea } from "components/input";
 import { Label } from "components/label";
-import React, { useMemo, useState } from "react";
+import useOnchange from "hooks/useOnchange";
+import React, { useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import ReactQuill from "react-quill";
+import { toast } from "react-toastify";
+import "react-quill/dist/quill.snow.css";
 
 const CampaignAddNew = () => {
     const [content, setContent] = useState("");
-    const { handleSubmit, control } = useForm();
+    const { handleSubmit, control, setValue } = useForm();
     const handleAddNewCampaign = () => {};
     const modules = useMemo(
         () => ({
@@ -26,6 +30,26 @@ const CampaignAddNew = () => {
         }),
         []
     );
+    const handleSelectCategory = (value) => {
+        setValue("category", value);
+    };
+    const [countries, setCountries] = useState([]);
+    const [filterCountry, setFilterCountry] = useOnchange(500);
+    useEffect(() => {
+        async function fetchCountries() {
+            if (!filterCountry) return;
+            try {
+                const response = await axios.get(
+                    `https://restcountries.com/v3.1/name/${filterCountry}`
+                );
+                console.log("fetchCountries ~ response:", response);
+                setCountries(response.data);
+            } catch (error) {
+                toast.error(error.message);
+            }
+        }
+        fetchCountries();
+    }, [filterCountry]);
     return (
         <div className="bg-white rounded-xl py-10 px-[66px]">
             <div className="text-center">
@@ -47,12 +71,12 @@ const CampaignAddNew = () => {
                             <Dropdown>
                                 <Dropdown.Select placeholder="Select the category"></Dropdown.Select>
                                 <Dropdown.List>
-                                    <Dropdown.Option>
+                                    <Dropdown.Option
+                                        onClick={() =>
+                                            handleSelectCategory("Architecture")
+                                        }
+                                    >
                                         Architecture
-                                    </Dropdown.Option>
-                                    <Dropdown.Option>Education</Dropdown.Option>
-                                    <Dropdown.Option>
-                                        Productivity
                                     </Dropdown.Option>
                                 </Dropdown.List>
                             </Dropdown>
@@ -148,9 +172,18 @@ const CampaignAddNew = () => {
                             <Dropdown>
                                 <Dropdown.Select placeholder="Select a country"></Dropdown.Select>
                                 <Dropdown.List>
-                                    <Dropdown.Option>Vietnam</Dropdown.Option>
-                                    <Dropdown.Option>Japan</Dropdown.Option>
-                                    <Dropdown.Option>Korea</Dropdown.Option>
+                                    <Dropdown.Search
+                                        placeholder="Search country"
+                                        onChange={setFilterCountry}
+                                    ></Dropdown.Search>
+                                    {countries.length > 0 &&
+                                        countries.map((country) => (
+                                            <Dropdown.Option
+                                                key={country?.name?.common}
+                                            >
+                                                {country?.name?.common}
+                                            </Dropdown.Option>
+                                        ))}
                                 </Dropdown.List>
                             </Dropdown>
                         </FormGroup>
