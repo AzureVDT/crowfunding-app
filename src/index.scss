@@ -40,3 +40,24 @@ input:focus + .error-input {
     box-shadow: 4px 4px 8px 0px rgba(226, 226, 226, 0.2),
         -4px 4px 8px 0px rgba(226, 226, 226, 0.2);
 }
+
+.gradient-banner {
+    background-image: linear-gradient(
+            179deg,
+            rgba(32, 18, 63, 0) -7.14%,
+            #000 87.01%
+        ),
+        url("https://images.unsplash.com/photo-1495107334309-fcf20504a5ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80");
+}
+
+.ReactModal__Body--open {
+    overflow: hidden;
+}
+
+.scroll-hidden {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.scroll-hidden::-webkit-scrollbar {
+    display: none;
+}

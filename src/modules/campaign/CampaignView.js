@@ -14,13 +14,7 @@ import CampaignItem from "./CampaignItem";
 const CampaignView = () => {
     return (
         <>
-            <div
-                className="h-[140px] rounded-3xl bg-cover bg-no-repeat bg-center bg-opacity-40 flex items-center justify-center text-white mb-10"
-                style={{
-                    backgroundImage: `linear-gradient(179deg,rgba(32, 18, 63, 0) -7.14%,#000 87.01%),
-                    url(/banner.png)`,
-                }}
-            >
+            <div className="h-[140px] rounded-3xl bg-cover bg-no-repeat bg-center bg-opacity-40 flex items-center justify-center text-white mb-10 gradient-banner">
                 <h1 className="text-[40px] font-bold">Education</h1>
             </div>
             <div className="flex items-start gap-x-10 w-full max-w-[1066px]">
@@ -86,7 +80,12 @@ const CampaignView = () => {
                 <Button kind="primary">Back this project</Button>
             </div>
             <div className="grid gap-x-[124px] grid-cols-[1.3fr,1fr] mb-[70px]">
-                <div></div>
+                <div>
+                    <div className="w-full bg-white"></div>
+                    <h2 className="mb-5 text-lg font-semibold uppercase">
+                        Story
+                    </h2>
+                </div>
                 <div>
                     <CampaignSupport></CampaignSupport>
                     <div className="mb-[60px]"></div>
