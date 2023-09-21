@@ -17,6 +17,7 @@ input:focus + .error-input {
     display: none;
 }
 
+// Custom react quill
 .quill {
     @apply border border-strock rounded-xl p-[15px_25px];
     .ql-toolbar.ql-snow {
@@ -60,4 +61,19 @@ input:focus + .error-input {
 }
 .scroll-hidden::-webkit-scrollbar {
     display: none;
+}
+
+// custom date picker
+#root .react-datepicker-wrapper {
+    @apply w-full px-6 py-4 text-sm font-medium border rounded-xl placeholder:text-text4 dark:placeholder:text-text2 
+    dark:text-white bg-transparent border-strock dark:border-darkStrock border-solid h-[54px] text-left flex;
+    .react-datepicker__calendar-icon {
+        @apply p-0;
+    }
+    .react-datepicker__input-container {
+        @apply flex items-center;
+    }
+    .react-datepicker__input-container input {
+        @apply w-full;
+    }
 }
