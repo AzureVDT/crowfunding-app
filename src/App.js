@@ -58,11 +58,11 @@ function App() {
                     ></Route>
                 </Route>
                 <Route
-                    path="/sign-up"
+                    path="/register"
                     element={<SignUpPage></SignUpPage>}
                 ></Route>
                 <Route
-                    path="/sign-in"
+                    path="/login"
                     element={<SignInPage></SignInPage>}
                 ></Route>
             </Routes>

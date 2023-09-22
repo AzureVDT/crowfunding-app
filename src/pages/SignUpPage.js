@@ -11,6 +11,8 @@ import { Input } from "components/input";
 import { IconEyeToggle } from "components/icons";
 import { Checkbox } from "components/checkbox";
 import { Button, ButtonGoogle } from "components/button";
+import { useDispatch } from "react-redux";
+import { authRegister } from "store/auth/auth-slice";
 
 const schema = yup.object({
     fullname: yup.string().required("This field is required"),
@@ -36,9 +38,17 @@ const SignUpPage = () => {
         handleSubmit,
         control,
         formState: { isValid, errors },
+        reset,
     } = useForm({ resolver: yupResolver(schema) });
+    const dispatch = useDispatch();
     const handleSignUp = (values) => {
         if (!isValid) return;
+        try {
+            dispatch(authRegister(values));
+            reset({});
+        } catch (error) {
+            console.log(error);
+        }
         console.log(values);
     };
     const { value: acceptTerm, handleToggleValue: handleToggleTerm } =
@@ -50,7 +60,7 @@ const SignUpPage = () => {
             <p className="mb-6 text-xs font-normal text-center lg:mb-8 lg:text-sm text-text3">
                 Already have an account?{" "}
                 <Link
-                    to={"/sign-in"}
+                    to={"/login"}
                     className="font-medium underline text-primary"
                 >
                     Sign in

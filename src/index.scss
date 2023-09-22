@@ -13,10 +13,6 @@
     }
 }
 
-input:focus + .error-input {
-    display: none;
-}
-
 // Custom react quill
 .quill {
     @apply border border-strock rounded-xl p-[15px_25px];

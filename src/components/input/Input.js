@@ -9,7 +9,6 @@ const Input = ({
     name,
     type = "text",
     error = "",
-    placeholder = "",
     children,
     ...props
 }) => {
@@ -19,34 +18,35 @@ const Input = ({
         defaultValue: "",
     });
     return (
-        <div className="relative">
-            <input
-                autoComplete="off"
-                type={type}
-                id={name}
-                className={classNames(
-                    `w-full px-6 py-4 text-sm font-medium border rounded-xl
-                    placeholder:text-text4 dark:placeholder:text-text2 dark:text-white bg-transparent`,
-                    error.length > 0
-                        ? "border-error text-error"
-                        : "border-strock dark:border-darkStrock",
-                    children ? "pr-16" : ""
+        <>
+            <div className="relative">
+                <input
+                    autoComplete="off"
+                    type={type}
+                    id={name}
+                    className={classNames(
+                        `w-full px-6 py-4 text-sm font-medium border rounded-xl
+                        placeholder:text-text4 dark:placeholder:text-text2 dark:text-white bg-transparent`,
+                        error.length > 0
+                            ? "border-error text-error"
+                            : "border-strock dark:border-darkStrock",
+                        children ? "pr-16" : ""
+                    )}
+                    {...field}
+                    {...props}
+                />
+                {children && (
+                    <span className="absolute cursor-pointer select-none right-6 top-2/4 -translate-y-2/4">
+                        {children}
+                    </span>
                 )}
-                {...field}
-                placeholder={error.length > 0 ? "" : placeholder}
-                {...props}
-            />
+            </div>
             {error.length > 0 && (
-                <span className="absolute text-sm font-medium pointer-events-none text-error top-2/4 -translate-y-2/4 left-6 error-input">
+                <span className="text-sm font-medium pointer-events-none text-error error-input">
                     {error}
                 </span>
             )}
-            {children && (
-                <span className="absolute cursor-pointer select-none right-6 top-2/4 -translate-y-2/4">
-                    {children}
-                </span>
-            )}
-        </div>
+        </>
     );
 };
 
@@ -55,7 +55,6 @@ Input.propTypes = {
     name: PropTypes.string,
     type: PropTypes.string,
     error: PropTypes.string,
-    placeholder: PropTypes.string,
     children: PropTypes.node,
 };
 

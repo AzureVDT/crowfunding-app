@@ -46,7 +46,7 @@ const SignInPage = () => {
             <p className="mb-6 text-xs font-normal text-center lg:mb-8 lg:text-sm text-text3">
                 Don't have an account?{" "}
                 <Link
-                    to={"/sign-up"}
+                    to={"/register"}
                     className="font-medium underline text-primary"
                 >
                     Sign up
