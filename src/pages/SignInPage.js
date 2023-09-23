@@ -10,6 +10,8 @@ import { Label } from "components/label";
 import { Input } from "components/input";
 import { IconEyeToggle } from "components/icons";
 import { Button, ButtonGoogle } from "components/button";
+import { useDispatch } from "react-redux";
+import { authLogin } from "store/auth/auth-slice";
 
 const schema = yup.object({
     email: yup
@@ -35,9 +37,10 @@ const SignInPage = () => {
         control,
         formState: { isValid, errors },
     } = useForm({ resolver: yupResolver(schema) });
+    const dispatch = useDispatch();
     const handleSignIn = (values) => {
         if (!isValid) return;
-        console.log(values);
+        dispatch(authLogin(values));
     };
     const { value: showPassword, handleToggleValue: handleTogglePassword } =
         useToggleValue();

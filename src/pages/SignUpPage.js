@@ -15,7 +15,7 @@ import { useDispatch } from "react-redux";
 import { authRegister } from "store/auth/auth-slice";
 
 const schema = yup.object({
-    fullname: yup.string().required("This field is required"),
+    name: yup.string().required("This field is required"),
     email: yup
         .string()
         .email("Invalid email address")
@@ -49,7 +49,6 @@ const SignUpPage = () => {
         } catch (error) {
             console.log(error);
         }
-        console.log(values);
     };
     const { value: acceptTerm, handleToggleValue: handleToggleTerm } =
         useToggleValue();
@@ -63,7 +62,7 @@ const SignUpPage = () => {
                     to={"/login"}
                     className="font-medium underline text-primary"
                 >
-                    Sign in
+                    Login
                 </Link>
             </p>
             <ButtonGoogle text="Sign up with google"></ButtonGoogle>
@@ -72,13 +71,13 @@ const SignUpPage = () => {
             </p>
             <form autoComplete="off" onSubmit={handleSubmit(handleSignUp)}>
                 <FormGroup>
-                    <Label htmlFor="fullname">Full Name *</Label>
+                    <Label htmlFor="name">Full Name *</Label>
                     <Input
                         control={control}
                         type="text"
-                        name="fullname"
+                        name="name"
                         placeholder="Jhon Doe"
-                        error={errors.fullname?.message}
+                        error={errors.name?.message}
                     ></Input>
                 </FormGroup>
                 <FormGroup>
