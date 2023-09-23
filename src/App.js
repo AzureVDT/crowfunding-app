@@ -1,9 +1,12 @@
 import LayoutDashboard from "layout/LayoutDashboard";
 import CampaignView from "modules/campaign/CampaignView";
-import React, { lazy, Suspense } from "react";
+import React, { lazy, Suspense, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Modal from "react-modal";
 import LayoutPayment from "layout/LayoutPayment";
+import { useDispatch, useSelector } from "react-redux";
+import { authRefreshToken, authUpdateUser } from "store/auth/auth-slice";
+import { getToken, logOut } from "utils/auth";
 const SignUpPage = lazy(() => import("./pages/SignUpPage"));
 const SignInPage = lazy(() => import("./pages/SignInPage"));
 const DashboardPage = lazy(() => import("./pages/DashboardPage"));
@@ -18,6 +21,28 @@ Modal.setAppElement("#root");
 Modal.defaultStyles = {};
 
 function App() {
+    const dispatch = useDispatch();
+    const { user } = useSelector((state) => state.auth);
+    useEffect(() => {
+        if (user && user.id) {
+            const { refresh_token } = getToken();
+            dispatch(
+                authUpdateUser({
+                    user: user,
+                    accessToken: refresh_token,
+                })
+            );
+        } else {
+            console.log("demo");
+            const { refresh_token } = getToken();
+            if (refresh_token) {
+                dispatch(authRefreshToken(refresh_token));
+            } else {
+                dispatch(authUpdateUser({}));
+                logOut();
+            }
+        }
+    }, [dispatch, user]);
     return (
         <Suspense>
             <Routes>

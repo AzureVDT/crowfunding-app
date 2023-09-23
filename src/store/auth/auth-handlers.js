@@ -1,7 +1,13 @@
 import { toast } from "react-toastify";
-import { call } from "redux-saga/effects";
-import { requestAuthLogin, requestAuthRegister } from "./auth-request";
-import { saveToken } from "utils/auth";
+import { call, put } from "redux-saga/effects";
+import {
+    requestAuthFetchMe,
+    requestAuthLogin,
+    requestAuthRefreshToken,
+    requestAuthRegister,
+} from "./auth-request";
+import { logOut, saveToken } from "utils/auth";
+import { authUpdateUser } from "./auth-slice";
 
 export default function* handleAuthRegister(action) {
     const { payload } = action;
@@ -20,9 +26,61 @@ function* handleAuthLogin({ payload }) {
         const response = yield call(requestAuthLogin, payload);
         if (response.data.accessToken && response.data.refreshToken) {
             saveToken(response.data.accessToken, response.data.refreshToken);
+            yield call(handleAuthFetchMe, {
+                payload: response.data.accessToken,
+            });
+            toast.success("Login successfully");
         }
-        yield 1;
+    } catch (error) {
+        const response = error.response.data;
+        if (response.status === 403) {
+            toast.error(response.message);
+            return;
+        }
+    }
+}
+
+function* handleAuthFetchMe({ payload }) {
+    try {
+        const response = yield call(requestAuthFetchMe, payload);
+        if (response.status === 200) {
+            yield put(
+                authUpdateUser({
+                    user: response.data,
+                    accessToken: payload,
+                })
+            );
+        }
     } catch (error) {}
 }
 
-export { handleAuthLogin };
+function* handleAuthRefreshToken({ payload }) {
+    try {
+        const response = yield call(requestAuthRefreshToken, payload);
+        if (response.data) {
+            saveToken(response.data.accessToken, response.data.refreshToken);
+            yield call(handleAuthFetchMe, {
+                payload: response.data.accessToken,
+            });
+        } else {
+            yield handleAuthLogOut();
+        }
+    } catch (error) {}
+}
+
+function* handleAuthLogOut() {
+    yield put(
+        authUpdateUser({
+            user: undefined,
+            accessToken: null,
+        })
+    );
+    logOut();
+}
+
+export {
+    handleAuthLogin,
+    handleAuthFetchMe,
+    handleAuthRefreshToken,
+    handleAuthLogOut,
+};
