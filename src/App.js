@@ -33,7 +33,6 @@ function App() {
                 })
             );
         } else {
-            console.log("demo");
             const { refresh_token } = getToken();
             if (refresh_token) {
                 dispatch(authRefreshToken(refresh_token));
